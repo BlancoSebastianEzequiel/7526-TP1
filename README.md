@@ -3,7 +3,7 @@ Trabajo Practico de la materia Simulacion, 2° C 2019, FIUBA
 
 ### doc
 
-- [Problem statement][doc/problem_statement.pdf]
+- [Problem statement](doc/problem_statement.pdf)
 
 ### Start up
 
