@@ -1,3 +1,5 @@
+import random
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -48,7 +50,7 @@ def y_values(x_values_, function):
 
 _lambda = 1 / 15
 
-x = x_values(start=0, end=100, step=0.5)
+x = x_values(start=0, end=250, step=0.5)
 
 plt.plot(x, y_values(x, function=generate_f(_lambda)))
 plt.xlabel('f(x)')
@@ -62,4 +64,10 @@ x = x_values(start=0, end=0.999, step=0.001)
 
 plt.plot(x, y_values(x, function=generate_inv_F(_lambda)))
 plt.xlabel('inv_F(x)')
+plt.show()
+
+sample_count = 100000
+inv_F = generate_inv_F(_lambda)
+f_random_samples = [inv_F(random.random()) for _ in range(sample_count)]
+plt.hist(f_random_samples, bins=100)
 plt.show()
