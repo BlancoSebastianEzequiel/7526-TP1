@@ -1,6 +1,7 @@
 from math import sqrt, exp, pi
-from numpy.random import exponential, rand
+from numpy.random import exponential, rand, normal
 import matplotlib.pyplot as plt
+from time import time
 
 
 def normal_distribution(x, mean, standard_deviation):
@@ -29,9 +30,8 @@ def generate_normal(mean, standard_deviation, lambda_value, n):
     z = []
     i = 0
     while i < n:
-        r = rand()
-        if r >= p[i]:
-            i += 1
+        if rand() >= p[i]:
+            # i += 1
             continue
         if rand() < 0.5:
             z.append(samples[i])
@@ -41,7 +41,28 @@ def generate_normal(mean, standard_deviation, lambda_value, n):
     return z
 
 
-normal = generate_normal(15, 3, 1, 100000)
-size = len(normal)
-plt.hist(normal)
+def relative_frequency_histogram(plt, values):
+    plt.hist(values, histtype='barstacked', density=True)
+
+
+def graph_normal_density_function(plt, mean, standard_deviation, n):
+    x = normal(loc=mean, scale=standard_deviation, size=n)
+    x.sort()
+    f = lambda x: normal_distribution(x, mean, standard_deviation)
+    y = [normal_distribution(t, mean, standard_deviation) for t in x]
+    plt.plot(x, y, color='C2', label='probability density function', ls='--')
+    plt.legend(loc='best')
+
+
+mean = 15
+standard_deviation = 3
+lambda_value = 0.5
+n = 100000
+start = time()
+normal_values = generate_normal(mean, standard_deviation, lambda_value, n)
+time_elapsed = time() - start
+print(f"time elapsed: {time_elapsed} seconds")
+plt.figure(figsize=(5, 5))
+relative_frequency_histogram(plt, normal_values)
+graph_normal_density_function(plt, mean, standard_deviation, n)
 plt.show()
