@@ -9,7 +9,7 @@ def normal_distribution(x, mean, standard_deviation):
     return scalar * exp(exponent)
 
 
-def exponential_distribution(y, lambda_value: 1):
+def exponential_distribution(y, lambda_value):
     return lambda_value * exp((-1)*lambda_value*y)
 
 
@@ -31,9 +31,8 @@ def generate_normal(mean, standard_deviation, lambda_value, n):
     while i < n:
         r = rand()
         if r >= p[i]:
+            i += 1
             continue
-        if i == n/2:
-            print("we are halfway through")
         if rand() < 0.5:
             z.append(samples[i])
         else:
@@ -42,7 +41,7 @@ def generate_normal(mean, standard_deviation, lambda_value, n):
     return z
 
 
-normal = generate_normal(0, 1, 1, 100000)
+normal = generate_normal(15, 3, 1, 100000)
 size = len(normal)
 plt.hist(normal)
 plt.show()
