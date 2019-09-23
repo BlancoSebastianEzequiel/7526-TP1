@@ -24,9 +24,8 @@ def c_value(mu, sigma, _lambda):
 
 def generate_normal(mu, sigma, _lambda, n):
     samples = exponential(1 / _lambda, n)
-    samples = [sample+mu for sample in samples]
     c = c_value(mu, sigma, _lambda)
-    f_x = lambda x: normal_distribution(x, mu, sigma)
+    f_x = lambda x: normal_distribution(x, 0, sigma)
     f_y = lambda x: exponential_distribution(x, _lambda)
     p = [f_x(t)/(c * f_y(t)) for t in samples]
     z = []
@@ -41,10 +40,11 @@ def generate_normal(mu, sigma, _lambda, n):
         if rand() < 0.5:
             z.append(samples[i])
         else:
-            z.append((-1)*samples[i]+2*mu)
+            z.append((-1)*samples[i])
         total += 1
         i += 1
     percentage_of_rejections = percentage_of_rejections / total
+    z = [_z+mu for _z in z]
     return z, percentage_of_rejections
 
 
