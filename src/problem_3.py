@@ -3,7 +3,6 @@ import numpy as np
 from numpy.random import exponential, rand, normal
 import matplotlib.pyplot as plt
 from time import time
-from scipy.stats import norm
 
 
 def normal_distribution(x, mu, sigma):
@@ -12,23 +11,23 @@ def normal_distribution(x, mu, sigma):
     return scalar * exp(exponent)
 
 
-def exponential_distribution(y, lambda_value):
-    return lambda_value * exp((-1)*lambda_value*y)
+def exponential_distribution(y, _lambda):
+    return _lambda * exp((-1) * _lambda * y)
 
 
-def c_value(mu, sigma, lambda_value):
-    t = sigma ** 2 * lambda_value
+def c_value(mu, sigma, _lambda):
+    t = sigma ** 2 * _lambda
     f_x_t = normal_distribution(t, mu, sigma)
-    f_y_t = exponential_distribution(t, lambda_value)
+    f_y_t = exponential_distribution(t, _lambda)
     return f_x_t/f_y_t
 
 
-def generate_normal(mu, sigma, lambda_value, n):
-    samples = exponential(1/lambda_value, n)
+def generate_normal(mu, sigma, _lambda, n):
+    samples = exponential(1 / _lambda, n)
     samples = [sample+mu for sample in samples]
-    c = c_value(mu, sigma, lambda_value)
+    c = c_value(mu, sigma, _lambda)
     f_x = lambda x: normal_distribution(x, mu, sigma)
-    f_y = lambda x: exponential_distribution(x, lambda_value)
+    f_y = lambda x: exponential_distribution(x, _lambda)
     p = [f_x(t)/(c * f_y(t)) for t in samples]
     z = []
     percentage_of_rejections = 0
@@ -61,7 +60,6 @@ def map_relative_frequencies(values):
 
 
 def relative_frequency_histogram(plt, values):
-    # frequencies = map_relative_frequencies(values)
     return plt.hist(values, histtype='barstacked', density=True)
 
 
@@ -74,30 +72,19 @@ def graph_normal_density_function(plt, mu, sigma, n):
     plt.legend(loc='upper right')
 
 
-def graph_exponential_density_function(plt, lambda_value, n, offset=0):
-    x = exponential(scale=lambda_value, size=n)
-    x.sort()
-    y = [exponential_distribution(t, lambda_value) for t in x]
-    x = [t + offset for t in x]
-    label = 'exponential'
-    plt.plot(x, y, color='C0', label=label, ls='--')
-    plt.legend(loc='upper right')
-
-
 if __name__ == "__main__":
     mu = 15
     sigma = 3
     variance = sigma**2
-    lambda_value = 0.5
+    _lambda = 0.5
     n = 100000
     start = time()
-    normal_values, percentage_of_rejections = generate_normal(mu, sigma, lambda_value, n)
+    normal_values, percentage_of_rejections = generate_normal(mu, sigma, _lambda, n)
     time_elapsed = time() - start
     print(f"time elapsed: {time_elapsed} seconds")
     plt.figure(figsize=(5, 5))
     relative_frequency_histogram(plt, normal_values)
     graph_normal_density_function(plt, mu, sigma, n)
-    #graph_exponential_density_function(plt, lambda_value, n, offset=mu)
     plt.show()
     actual_mean = np.mean(normal_values)
     mean_error = abs(mu - actual_mean)
