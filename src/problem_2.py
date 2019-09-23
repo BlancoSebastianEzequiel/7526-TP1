@@ -1,7 +1,7 @@
-import random
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from src.problem_1 import gcl
 
 
 def generate_f(lambda_):
@@ -48,26 +48,27 @@ def y_values(x_values_, function):
     return [function(x_) for x_ in x_values_]
 
 
-_lambda = 1 / 15
+if __name__ == "__main__":
+    _lambda = 1 / 15
 
-x = x_values(start=0, end=250, step=0.5)
+    x = x_values(start=0, end=250, step=0.5)
 
-plt.plot(x, y_values(x, function=generate_f(_lambda)))
-plt.xlabel('f(x)')
-plt.show()
+    plt.plot(x, y_values(x, function=generate_f(_lambda)))
+    plt.xlabel('f(x)')
+    plt.show()
 
-plt.plot(x, y_values(x, function=generate_F(_lambda)))
-plt.xlabel('F(x)')
-plt.show()
+    plt.plot(x, y_values(x, function=generate_F(_lambda)))
+    plt.xlabel('F(x)')
+    plt.show()
 
-x = x_values(start=0, end=0.999, step=0.001)
+    x = x_values(start=0, end=0.999, step=0.001)
 
-plt.plot(x, y_values(x, function=generate_inv_F(_lambda)))
-plt.xlabel('inv_F(x)')
-plt.show()
+    plt.plot(x, y_values(x, function=generate_inv_F(_lambda)))
+    plt.xlabel('inv_F(x)')
+    plt.show()
 
-sample_count = 100000
-inv_F = generate_inv_F(_lambda)
-f_random_samples = [inv_F(random.random()) for _ in range(sample_count)]
-plt.hist(f_random_samples, bins=100)
-plt.show()
+    sample_count = 100000
+    inv_F = generate_inv_F(_lambda)
+    f_random_samples = [inv_F(random) for random in gcl(normalize=True, iterations=sample_count)]
+    plt.hist(f_random_samples, bins=100)
+    plt.show()
