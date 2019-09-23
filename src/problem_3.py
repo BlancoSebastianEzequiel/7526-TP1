@@ -84,24 +84,25 @@ def graph_exponential_density_function(plt, lambda_value, n, offset=0):
     plt.legend(loc='upper right')
 
 
-mu = 15
-sigma = 3
-variance = sigma**2
-lambda_value = 0.5
-n = 100000
-start = time()
-normal_values, percentage_of_rejections = generate_normal(mu, sigma, lambda_value, n)
-time_elapsed = time() - start
-print(f"time elapsed: {time_elapsed} seconds")
-plt.figure(figsize=(5, 5))
-relative_frequency_histogram(plt, normal_values)
-graph_normal_density_function(plt, mu, sigma, n)
-#graph_exponential_density_function(plt, lambda_value, n, offset=mu)
-plt.show()
-actual_mean = np.mean(normal_values)
-mean_error = abs(mu - actual_mean)
-print(f"mu: {actual_mean} - error: {mean_error}")
-actual_variance = np.std(normal_values, ddof=1)**2
-variance_error = abs(variance - actual_variance)
-print(f"actual sigma: {actual_variance} - error: {variance_error}")
-print(f"percentage_of_rejections: {percentage_of_rejections}")
+if __name__ == "__main__":
+    mu = 15
+    sigma = 3
+    variance = sigma**2
+    lambda_value = 0.5
+    n = 100000
+    start = time()
+    normal_values, percentage_of_rejections = generate_normal(mu, sigma, lambda_value, n)
+    time_elapsed = time() - start
+    print(f"time elapsed: {time_elapsed} seconds")
+    plt.figure(figsize=(5, 5))
+    relative_frequency_histogram(plt, normal_values)
+    graph_normal_density_function(plt, mu, sigma, n)
+    #graph_exponential_density_function(plt, lambda_value, n, offset=mu)
+    plt.show()
+    actual_mean = np.mean(normal_values)
+    mean_error = abs(mu - actual_mean)
+    print(f"mu: {actual_mean} - error: {mean_error}")
+    actual_variance = np.std(normal_values, ddof=1)**2
+    variance_error = abs(variance - actual_variance)
+    print(f"actual sigma: {actual_variance} - error: {variance_error}")
+    print(f"percentage_of_rejections: {percentage_of_rejections}")
