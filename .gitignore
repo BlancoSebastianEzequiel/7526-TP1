@@ -1,3 +1,5 @@
 .idea/
 doc/.ipynb_checkpoints/
 .DS_Store
+src/__pycache__/
+.ipynb_checkpoints
