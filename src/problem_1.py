@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 
 # Informar los primeros 10 números generados.
-def gcl(seed=10, iterations=10, multiplier=1013904223, addition=1664525, module=232, normalize=False):
+def gcl(seed=10, iterations=10, multiplier=1013904223, addition=1664525, module=2 ** 32, normalize=False):
     results = []
     x = seed
     for _ in range(iterations):
@@ -11,7 +11,7 @@ def gcl(seed=10, iterations=10, multiplier=1013904223, addition=1664525, module=
 
     if not normalize:
         return results
-    return [x / (module - 1) for x in results]
+    return [x / module for x in results]
 
 
 if __name__ == "__main__":

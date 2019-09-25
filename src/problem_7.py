@@ -32,6 +32,6 @@ def plot_3d(random_sample):
 
 
 if __name__ == "__main__":
-    _random_sample = gcl(iterations=50)
+    _random_sample = gcl(iterations=1000)
     plot_2d(_random_sample)
     plot_3d(_random_sample)
