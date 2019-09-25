@@ -6,11 +6,12 @@ def gcl(seed = 10, iterations = 10, multiplier = 1013904223, addition = 1664525,
   results = []
   x = seed
   for _ in range(iterations):
-    ecuation = (multiplier * x + addition) % module
-    x = ecuation / module if normalize else ecuation
     results.append(x)
+    x = (multiplier * x + addition) % module
 
-  return results
+  if not normalize:
+    return results
+  return [x/module for x in results]
 
 
 if __name__ == "__main__":
