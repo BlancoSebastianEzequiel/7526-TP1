@@ -24,11 +24,9 @@ if __name__ == "__main__":
 
 
 # Realizar un histograma mostrando 100.000 valores generados en el punto b.
-def gcl_with_histogram(seed=10, iterations=10, multiplier=1013904223, addition=1664525, module=232, normalize=False):
+def gcl_with_histogram(seed=10, iterations=10, multiplier=1013904223, addition=1664525, module=2**32, normalize=False):
     results = gcl(seed, iterations, multiplier, addition, module, normalize)
-    bins = [bin / 10 for bin in range(10)]
-
-    plt.hist(results, bins)
+    plt.hist(results, bins=100)
     plt.show()
 
 
