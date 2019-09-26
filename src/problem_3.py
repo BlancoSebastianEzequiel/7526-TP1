@@ -99,7 +99,8 @@ if __name__ == "__main__":
     _lambda = 0.5
     n = 100000
     start = time()
-    _normal_values, percentage_of_rejections = generate_normal(_mu, _sigma, _lambda, n)
+    _normal_values, _percentage_of_rejections = \
+        generate_normal(_mu, _sigma, _lambda, n)
     time_elapsed = time() - start
     print(f"time elapsed: {time_elapsed} seconds")
     plt.figure(figsize=(5, 5))
@@ -108,4 +109,4 @@ if __name__ == "__main__":
     plt.show()
     compare_mu(_normal_values, _mu)
     compare_variance(_normal_values, _variance)
-    print(f"percentage_of_rejections: {percentage_of_rejections}")
+    print(f"percentage_of_rejections: {_percentage_of_rejections}")
