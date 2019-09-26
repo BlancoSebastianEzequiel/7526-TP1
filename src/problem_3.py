@@ -82,14 +82,14 @@ def calculate_actual_variance(normal_values):
 
 def compare_mu(normal_values, mu):
     actual_mean = calculate_actual_median(normal_values)
-    mean_error = abs(mu - actual_mean)
-    print(f"mu: {actual_mean} - error: {mean_error}")
+    error = abs(mu - actual_mean)
+    print(f"mu: {actual_mean} - error: {error}")
 
 
 def compare_variance(normal_values, variance):
-    actual_mean = calculate_actual_variance(normal_values)
-    mean_error = abs(variance - actual_mean)
-    print(f"mu: {actual_mean} - error: {mean_error}")
+    actual_variance = calculate_actual_variance(normal_values)
+    error = abs(variance - actual_variance)
+    print(f"mu: {actual_variance} - error: {error}")
 
 
 if __name__ == "__main__":
