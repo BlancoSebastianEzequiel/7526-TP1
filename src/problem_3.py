@@ -72,24 +72,40 @@ def graph_normal_density_function(plt, mu, sigma, n):
     plt.legend(loc='upper right')
 
 
+def calculate_actual_median(normal_values):
+    return np.mean(normal_values)
+
+
+def calculate_actual_variance(normal_values):
+    return np.std(normal_values, ddof=1) ** 2
+
+
+def compare_mu(normal_values, mu):
+    actual_mean = calculate_actual_median(normal_values)
+    mean_error = abs(mu - actual_mean)
+    print(f"mu: {actual_mean} - error: {mean_error}")
+
+
+def compare_variance(normal_values, variance):
+    actual_mean = calculate_actual_variance(normal_values)
+    mean_error = abs(variance - actual_mean)
+    print(f"mu: {actual_mean} - error: {mean_error}")
+
+
 if __name__ == "__main__":
-    mu = 15
-    sigma = 3
-    variance = sigma**2
+    _mu = 15
+    _sigma = 3
+    _variance = _sigma ** 2
     _lambda = 0.5
     n = 100000
     start = time()
-    normal_values, percentage_of_rejections = generate_normal(mu, sigma, _lambda, n)
+    _normal_values, percentage_of_rejections = generate_normal(_mu, _sigma, _lambda, n)
     time_elapsed = time() - start
     print(f"time elapsed: {time_elapsed} seconds")
     plt.figure(figsize=(5, 5))
-    relative_frequency_histogram(plt, normal_values)
-    graph_normal_density_function(plt, mu, sigma, n)
+    relative_frequency_histogram(plt, _normal_values)
+    graph_normal_density_function(plt, _mu, _sigma, n)
     plt.show()
-    actual_mean = np.mean(normal_values)
-    mean_error = abs(mu - actual_mean)
-    print(f"mu: {actual_mean} - error: {mean_error}")
-    actual_variance = np.std(normal_values, ddof=1)**2
-    variance_error = abs(variance - actual_variance)
-    print(f"actual sigma: {actual_variance} - error: {variance_error}")
+    compare_mu(_normal_values, _mu)
+    compare_variance(_normal_values, _variance)
     print(f"percentage_of_rejections: {percentage_of_rejections}")
