@@ -28,8 +28,6 @@ def F(x, mu, sigma):
 def actual_distribution_distance(values, mu, sigma):
     max_value = None
     for idx, x in enumerate(values):
-        if idx % 100 == 0:
-            print(f"iteration: {idx}")
         q = abs(_F(values, x) - F(x, mu, sigma))
         if max_value is None or q > max_value:
             max_value = q
