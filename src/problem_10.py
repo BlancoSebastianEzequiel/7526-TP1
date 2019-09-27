@@ -2,23 +2,15 @@ from math import erf, sqrt, log
 from src.problem_3 import generate_normal
 
 
-def get_sorted_pos(a_list, x, init, end):
-    if init >= end:
-        return end - 1
-    n = end - init + 1
-    middle = int(n / 2) + init
-    if a_list[middle] <= x:
-        return get_sorted_pos(a_list, x, middle+1, end)
-    else:
-        return get_sorted_pos(a_list, x, init+1, end)
-
-
-def _F(values, x):
-    n = len(values)
-    # values.sort()
-    # pos = get_sorted_pos(values.copy(), x, 0, n-1)
-    # return sum(values[0:pos+1]) / n
-    return sum(list(filter(lambda xi: xi <= x, values))) / n
+def _F(values, x, accumulated_sum, cumulative_pos, n):
+    """:param values: array of sorted numeric values"""
+    for i in range(cumulative_pos, n):
+        if values[i] <= x:
+            accumulated_sum += 1
+        else:
+            return accumulated_sum, i
+        cumulative_pos = i
+    return accumulated_sum, cumulative_pos
 
 
 def F(x, mu, sigma):
@@ -27,8 +19,13 @@ def F(x, mu, sigma):
 
 def actual_distribution_distance(values, mu, sigma):
     max_value = None
-    for idx, x in enumerate(values):
-        q = abs(_F(values, x) - F(x, mu, sigma))
+    accumulated_sum = 0
+    cumulative_pos = 0
+    n = len(values)
+    for x in values:
+        accumulated_sum, cumulative_pos = \
+            _F(values, x, accumulated_sum, cumulative_pos, n)
+        q = abs(accumulated_sum/n - F(x, mu, sigma))
         if max_value is None or q > max_value:
             max_value = q
     return max_value
