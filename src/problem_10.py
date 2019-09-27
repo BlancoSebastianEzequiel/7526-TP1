@@ -2,7 +2,7 @@ from math import erf, sqrt, log
 from src.problem_3 import generate_normal
 
 
-def _F(values, x, accumulated_sum, cumulative_pos, n):
+def empirical_approach_to_F(values, x, accumulated_sum, cumulative_pos, n):
     """:param values: array of sorted numeric values"""
     for i in range(cumulative_pos, n):
         if values[i] <= x:
@@ -25,7 +25,7 @@ def actual_distribution_distance(values, mu, sigma):
     n = len(values)
     for x in values:
         accumulated_sum, cumulative_pos = \
-            _F(values, x, accumulated_sum, cumulative_pos, n)
+            empirical_approach_to_F(values, x, accumulated_sum, cumulative_pos, n)
         q = abs(accumulated_sum/n - F(x, mu, sigma))
         if max_value is None or q > max_value:
             max_value = q
