@@ -21,6 +21,7 @@ def actual_distribution_distance(values, mu, sigma):
     max_value = None
     accumulated_sum = 0
     cumulative_pos = 0
+    values.sort()
     n = len(values)
     for x in values:
         accumulated_sum, cumulative_pos = \
