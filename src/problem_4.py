@@ -1,5 +1,4 @@
 import numpy as np
-import math
 import matplotlib.pyplot as plt
 
 def random_square_coordinates(side_len, center, num_coords, angle):
