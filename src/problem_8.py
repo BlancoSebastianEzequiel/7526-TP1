@@ -21,6 +21,13 @@ def gaps_calculator(sample, segment):
 def probablility_for(p0, gap):
     return p0 * ((1 - p0)**gap)
 
+def check_result(chi_square_result, threshold, precent):
+    print('Considerando un nivel de significancia del',precent,'%: \n')
+    if(chi_square_result < threshold): 
+        print('Se acepta la hipotesis \n')
+    else:
+        print('Se rechaza la hipotesis \n')
+
 if __name__ == "__main__":
     one_percent_threshold = 44.314
     five_percent_threshold = 37.652
@@ -42,14 +49,6 @@ if __name__ == "__main__":
 
     print('Resultado del test: ', chi_square_result)
 
-    print('Considerando un nivel de significancia del 1%: \n')
-    if(chi_square_result < one_percent_threshold): 
-        print('Se acepta la hipotesis \n')
-    else:
-        print('Se rechaza la hipotesis \n')
+    check_result(chi_square_result, one_percent_threshold, 1)
 
-    print('Considerando un nivel de significancia del 5%: \n')
-    if(chi_square_result < five_percent_threshold): 
-        print('Se acepta la hipotesis \n')
-    else:
-        print('Se rechaza la hipotesis \n')
+    check_result(chi_square_result, five_percent_threshold, 5)
