@@ -1,16 +1,8 @@
-#https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.chisquare.html
-#https://towardsdatascience.com/running-chi-square-tests-in-python-with-die-roll-data-b9903817c51b
-#438 chi cuadrado tabla
-
-#Move exercise 6 logic for generating random numbers to function
-
 import numpy as np
 from src.problem_6 import transformation_method_generator
 
 
 def chi_square_test(random_values):
-    #values = np.array([17,16,13,10,8,12,12,12,7,7])
-    #partition_test = [17,16,13,10,8,12,12,12,7,7]
     values, observations = np.unique(random_values, return_counts=True)
     print('Cantidad de Observaciones', len(random_values))
     print('Observaciones: ', values, observations)
