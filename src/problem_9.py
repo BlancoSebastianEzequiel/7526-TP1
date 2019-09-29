@@ -1,17 +1,18 @@
 import numpy as np
-from src.problem_6 import transformation_method_generator
+from problem_6 import transformation_method_generator
 
 
-def chi_square_test(random_values):
+def chi_square_test(random_values, expected_outcomes=[]):
     values, observations = np.unique(random_values, return_counts=True)
     print('Cantidad de Observaciones', len(random_values))
     print('Observaciones: ', values, observations)
-    expected_outcomes = np.divide(np.sum(observations), len(observations))
+    if not expected_outcomes:
+        expected_outcomes = [ np.divide(np.sum(observations), len(observations)) ] * len(observations)
     print('Esperadas: ', expected_outcomes)
     print('Grados de libertad: ', len(observations) - 1)
     result = 0
-    for observation in observations:
-        result += (observation - expected_outcomes) ** 2 / expected_outcomes
+    for num, observation in enumerate(observations):
+        result += (observation - expected_outcomes[num]) ** 2 / expected_outcomes[num]
 
     return result
 
