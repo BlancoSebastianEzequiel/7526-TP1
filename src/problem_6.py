@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from src.problem_1 import gcl
+from problem_1 import gcl
 
 
 def transformation_method_generator(iterations):
